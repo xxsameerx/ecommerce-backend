@@ -61,6 +61,9 @@ public class UserService {
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid credentials");
         }
+        if ("ADMIN".equals(user.getRole())) {
+    throw new RuntimeException("Admin accounts must log in through the admin portal");
+}
 
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole());
 

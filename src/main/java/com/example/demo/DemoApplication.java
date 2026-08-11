@@ -23,11 +23,15 @@ public class DemoApplication {
     @Bean
     public CommandLineRunner seedOnStartup(GameRepository gameRepository, GameSeedController seedController) {
         return args -> {
-            if (gameRepository.count() == 0) {
-                System.out.println("No games found, seeding from FreeToGame API...");
-                seedController.seedGames();
-            } else {
-                System.out.println("Games already exist, skipping auto-seed.");
+            try {
+                if (gameRepository.count() == 0) {
+                    System.out.println("No games found, seeding from FreeToGame API...");
+                    seedController.seedGames();
+                } else {
+                    System.out.println("Games already exist, skipping auto-seed.");
+                }
+            } catch (Exception e) {
+                System.out.println("Seeding skipped due to error: " + e.getMessage());
             }
         };
     }

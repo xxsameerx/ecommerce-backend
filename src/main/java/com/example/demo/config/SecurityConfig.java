@@ -53,7 +53,7 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .requestMatchers("/ping").permitAll()
+                .requestMatchers("/ping","/db-ping").permitAll()
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/games/**").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
